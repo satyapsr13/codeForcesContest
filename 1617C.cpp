@@ -55,111 +55,43 @@ void _print(vector<T> v)
 // const int d4x[4] = {-1, 0, 1, 0}, d4y[4] = {0, 1, 0, -1};
 // const int d8x[8] = {-1, -1, 0, 1, 1, 1, 0, -1}, d8y[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
-string binary(int n)
+bool check(int a,int b)
 {
-    int d = log2(n) + 1;
-    string s;
-    for (int i = d - 1; i >= 0; --i)
-    {
-        int tt = pow(2, i);
-        (n & tt) ? s.push_back('1') : s.push_back('0');
-    }
-    return s;
-}
-bool checksubarray(string s, string t)
-{
-    int n = s.size();
-    int m = t.size();
-    for (int j = 0; j < n; ++j)
-
-    {
-        for (int i = 0; i < m; ++i)
-        {
-            if (s[i + j] != t[i])
-            {
-                break;
-                /* code */
-            }
-            if (i == m - 1)
-            {
-                return 1;
-            }
-        }
-    }
-    return 0;
+    return a % (a - b) != 0;
 }
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> n >> k;
-    if (!(k & 1 ))
+    cin >> n;
+    vector<int> v(n);
+
+    for (int i = 0, x; i < n; ++i)
     {
-        cout << "NO" << endl;
-        return; 
+        cin >> v[i];
     }
 
-    int t1 = log2(n) + 1;
-    int t2 = log2(k) + 1;
-    // if (t1 > t2)
-    // {
-    //     cout << "NO"
-    //          << "\n";
-    //     return;
-    // }
-    // if (t1 == t2)
-    // {
-    //     if (n == k)
-    //     {
-    //         cout << "YES"
-    //              << "\n";
-    //         return;
-    //     }
-    //     else
-    //     {
-    //         cout << "NO" << endl;
-    //         return;
-    //     }
-    // }
-    string t11 = binary(n);
-    string t22 = binary(k);
+    // sort(v.begin(), v.end());
+    int j = 1;
 
-    // reverse(t11.begin(), t11.end());
-
-    int l1;
-    for (int i = t11.size() - 1; i >= 0; --i)
+    for (int i = 0; i < n; ++i)
     {
-        if (t11[i] == '1')
+        if (v[i] != j++)
         {
-            l1 = i;
-            break;
+            if (v[i] - j > 0)
+            {
+
+                if (v[i] % (v[i] - j) == 0)
+                {
+                    cout << "-1"
+                         << "\n";
+                    return;
+                }
+            }
+            count++;
         }
     }
-    string ss;
-    cout << t22;cout <<"\n" ;
-    
-
-    for (int i = 0; i < l1 + 1; ++i)
-    {
-        ss.push_back(t11[i]);
-    }
-    if (checksubarray(t22, ss))
-    {
-        cout << "YES"
-             << "\n";
-        return;
-    }
-
-    cout << ss;cout <<"\n" ;
-    
-    reverse(ss.begin(), ss.end());
-    if (checksubarray(t22, ss))
-    {
-        cout << "YES"
-             << "\n";
-        return;
-    }
-    cout << "NO" << endl;
-    return;
+    cout << count;
+    cout << "\n";
 }
 signed main()
 {
@@ -167,6 +99,9 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    solve();
+    int Test_Cases;
+    cin >> Test_Cases;
+    while (Test_Cases--)
+        solve();
     return 0;
 }
