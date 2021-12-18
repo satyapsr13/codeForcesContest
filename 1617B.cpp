@@ -66,32 +66,17 @@ void solve()
     }
     else
     {
-        vector<int> v;
 
-        for (int i = 2; i < sqrt(n) + 1; ++i)
+        for (int i = 3; i < n; i += 2)
         {
-            if (n % i == 0)
+            int t = n - i - 1;
+            if(i !=t)
             {
-                v.push_back(i);
-            }
-        }
-        debug(v);
-        l = 3;
-        if (v.size() == 0)
-        {
-          }
-
-        for (int i = 0; i < v.size(); ++i)
-        {
-            while (1)
-            {
-                if (l * v[i] != n - v[i] and ((n - v[i]) % v[i]) == 0)
+                if (i%t!=0 and t%i!=0)
                 {
-                    cout << l * v[i] << " " << n - v[i] << " " << l;
-                    cout << "\n";
+                    cout << i << " " << t << " " << 1;cout <<"\n" ;
                     return;
                 }
-                /* code */
             }
         }
     }
