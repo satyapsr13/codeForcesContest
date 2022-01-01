@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long int
@@ -55,72 +54,60 @@ void _print(vector<T> v)
 // const int d4x[4] = {-1, 0, 1, 0}, d4y[4] = {0, 1, 0, -1};
 // const int d8x[8] = {-1, -1, 0, 1, 1, 1, 0, -1}, d8y[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
+vector<int> v(1000001, 0);
+void loadPrimes()
+{
+    vector<bool> isPrime(1000001, 1);
+
+    for (int i = 2; i < 1000001; ++i)
+    {
+        if (isPrime[i])
+        {
+
+            for (int j = i * i; j < 1000001; j += i)
+            {
+                isPrime[j] = 0;
+            }
+        }
+    }
+
+    for (int i = 0; i < 1000001; ++i)
+    {
+        if (isPrime[i])
+        {
+            // v.push_back(1);
+            v[i] = 1;
+        }
+    }
+}
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
     cin >> n;
-    vector<int> v(n);
-    int a = 0, b = 0;
-    for (int i = 0, x; i < n; ++i)
+    // cout << 2 << " " << n - 2;
+    // cout << v[11];
+    for (int i = 4; i <= n; ++i)
     {
-        cin >> v[i];
-        if (i & 1)
+        if (v[i] == 0 and v[n - i] == 0)
         {
-            a = __gcd(a, v[i]);
-        }
-        else
-        {
-            b = __gcd(b, v[i]);
+            cout << i << " " << n - i;
+            cout << "\n";
+            return;
         }
     }
-
-    for (int i = 0; i < n; i += 2)
-    {
-
-        if (v[i] % a == 0)
-        {
-            sum = 1;
-        }
-    }
-    if (!sum)
-    {
-        cout << a << "\n";
-        return;
-        /* code */
-    }
-
-    sum = 0;
-    for (int i = 1; i < n; i += 2)
-
-    {
-
-        if (v[i] % b == 0)
-        {
-            sum = 1;
-        }
-    }
-    if (!sum)
-
-    {
-        cout << b << "\n";
-        return;
-    }
-    sum = 0;
-    string aaa;
-
-    cout << "0"
-         << "\n";
-    return;
 }
 signed main()
 {
-
+ 
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    int Test_Cases;
-    cin >> Test_Cases;
-    while (Test_Cases--)
-        solve();
+    loadPrimes();
+    solve();
     return 0;
 }
+
+
+
+
+

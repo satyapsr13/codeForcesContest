@@ -58,58 +58,45 @@ void _print(vector<T> v)
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> n;
-    vector<int> v(n);
-    int a = 0, b = 0;
-    for (int i = 0, x; i < n; ++i)
+    cin >> n >> k >> l;
+    map<int, vector<int>> mp;
+    vector<int> v;
+
+    for (int i = 0; i < n; ++i)
     {
-        cin >> v[i];
-        if (i & 1)
-        {
-            a = __gcd(a, v[i]);
-        }
-        else
-        {
-            b = __gcd(b, v[i]);
-        }
+        cin >> sum;
+        // mp[]
+        v.push_back(sum);
     }
 
-    for (int i = 0; i < n; i += 2)
+    for (int i = 0; i < n; ++i)
     {
-
-        if (v[i] % a == 0)
-        {
-            sum = 1;
-        }
+        mp[v[i] % l].push_back(i);
     }
-    if (!sum)
-    {
-        cout << a << "\n";
-        return;
-        /* code */
-    }
-
-    sum = 0;
-    for (int i = 1; i < n; i += 2)
-
+    debug(v);
+    for (auto &it : mp)
     {
 
-        if (v[i] % b == 0)
+        if (it.second.size() >= k)
+
         {
-            sum = 1;
+            cout << "Yes"
+                 << "\n";
+            // return;
+            int i = 0;
+            for (auto &it1 : it.second)
+            {
+                if (++i > k)
+                    return;
+                cout << v[it1] << " ";
+            }
+            return;
+            /* code */
         }
     }
-    if (!sum)
-
-    {
-        cout << b << "\n";
-        return;
-    }
-    sum = 0;
-    string aaa;
-
-    cout << "0"
-         << "\n";
+    // debug(it);
+    cout << "No" << endl;
+    return;
     return;
 }
 signed main()
@@ -118,9 +105,6 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    int Test_Cases;
-    cin >> Test_Cases;
-    while (Test_Cases--)
-        solve();
+    solve();
     return 0;
 }

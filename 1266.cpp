@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long int
@@ -55,62 +54,61 @@ void _print(vector<T> v)
 // const int d4x[4] = {-1, 0, 1, 0}, d4y[4] = {0, 1, 0, -1};
 // const int d8x[8] = {-1, -1, 0, 1, 1, 1, 0, -1}, d8y[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
+template <class T1>
+class Debug
+{
+public:
+    void debug1(T1 x)
+    {
+        cout << "-> " << x << endl;
+    }
+    void debug1(int x, int y)
+    {
+        cout << "-> " << x << "\t"
+             << "-> " << y << endl;
+    }
+} d1;
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> n;
-    vector<int> v(n);
-    int a = 0, b = 0;
-    for (int i = 0, x; i < n; ++i)
+    cin >> n >> k;
+    l = n + k;
+    Debug d1;
+    d1.debug1(n);
+    if (n == 1 and k == 1)
     {
-        cin >> v[i];
-        if (i & 1)
-        {
-            a = __gcd(a, v[i]);
-        }
-        else
-        {
-            b = __gcd(b, v[i]);
-        }
-    }
-
-    for (int i = 0; i < n; i += 2)
-    {
-
-        if (v[i] % a == 0)
-        {
-            sum = 1;
-        }
-    }
-    if (!sum)
-    {
-        cout << a << "\n";
+        cout << "0"
+             << "\n";
         return;
         /* code */
     }
 
-    sum = 0;
-    for (int i = 1; i < n; i += 2)
-
+    if (n == 1 || k == 1)
     {
-
-        if (v[i] % b == 0)
+        for (int i = 0; i < n; ++i)
         {
-            sum = 1;
+            for (int j = 1; j <= k; ++j)
+            {
+                cout << sum + 2
+                     << " ";
+                sum++;
+            }
+            // l--;
+            cout << "\n";
         }
-    }
-    if (!sum)
-
-    {
-        cout << b << "\n";
         return;
     }
-    sum = 0;
-    string aaa;
+    // swap(n, k);
 
-    cout << "0"
-         << "\n";
-    return;
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 1; j <= k; ++j)
+        {
+            cout << l * j << " ";
+        }
+        l--;
+        cout << "\n";
+    }
 }
 signed main()
 {
@@ -118,9 +116,7 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    int Test_Cases;
-    cin >> Test_Cases;
-    while (Test_Cases--)
-        solve();
+
+    solve();
     return 0;
 }

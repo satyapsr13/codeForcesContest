@@ -57,60 +57,16 @@ void _print(vector<T> v)
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
 void solve()
 {
-    int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> n;
-    vector<int> v(n);
-    int a = 0, b = 0;
-    for (int i = 0, x; i < n; ++i)
+    int n, k, ans = 0, l, m, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
+    cin >> n >> m;
+    for (int i = 0; i < n; ++i)
     {
-        cin >> v[i];
-        if (i & 1)
+        for (int j = 0; j < m; ++j)
         {
-            a = __gcd(a, v[i]);
+            cout << ( j) + (m * i) << " ";
         }
-        else
-        {
-            b = __gcd(b, v[i]);
-        }
+        cout << "\n";
     }
-
-    for (int i = 0; i < n; i += 2)
-    {
-
-        if (v[i] % a == 0)
-        {
-            sum = 1;
-        }
-    }
-    if (!sum)
-    {
-        cout << a << "\n";
-        return;
-        /* code */
-    }
-
-    sum = 0;
-    for (int i = 1; i < n; i += 2)
-
-    {
-
-        if (v[i] % b == 0)
-        {
-            sum = 1;
-        }
-    }
-    if (!sum)
-
-    {
-        cout << b << "\n";
-        return;
-    }
-    sum = 0;
-    string aaa;
-
-    cout << "0"
-         << "\n";
-    return;
 }
 signed main()
 {
@@ -118,9 +74,6 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    int Test_Cases;
-    cin >> Test_Cases;
-    while (Test_Cases--)
-        solve();
+            solve();
     return 0;
 }

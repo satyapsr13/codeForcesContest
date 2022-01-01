@@ -60,57 +60,21 @@ void solve()
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
     cin >> n;
     vector<int> v(n);
-    int a = 0, b = 0;
+
     for (int i = 0, x; i < n; ++i)
     {
         cin >> v[i];
-        if (i & 1)
+        // mx = max(mx, v[i]);
+        if (v[i]-i > mx)
         {
-            a = __gcd(a, v[i]);
-        }
-        else
-        {
-            b = __gcd(b, v[i]);
-        }
-    }
-
-    for (int i = 0; i < n; i += 2)
-    {
-
-        if (v[i] % a == 0)
-        {
-            sum = 1;
+            mx = v[i]-i-1;
+            // l = i;
+            /* code */
         }
     }
-    if (!sum)
-    {
-        cout << a << "\n";
-        return;
-        /* code */
-    }
-
-    sum = 0;
-    for (int i = 1; i < n; i += 2)
-
-    {
-
-        if (v[i] % b == 0)
-        {
-            sum = 1;
-        }
-    }
-    if (!sum)
-
-    {
-        cout << b << "\n";
-        return;
-    }
-    sum = 0;
-    string aaa;
-
-    cout << "0"
-         << "\n";
-    return;
+    mx = max(mx, 0LL);
+    cout << mx  ;
+    cout << "\n";
 }
 signed main()
 {
