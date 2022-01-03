@@ -58,13 +58,13 @@ void _print(vector<T> v)
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    // cin >> n;
+    cin >> l >> k;
+    cin >> n;
 
-    string s ;
-    cin >> s;
-    string p = s;
-    reverse(p.begin(), p.end());
-    cout << s << p;
+    l = l + 1000000007;
+    k = k + 1000000007;
+    int arr[6] = {l, k, k - l, -l, -k, l - k};
+    cout << (arr[(n - 1) % 6] + 1000000007 ) %   1000000007;
 }
 signed main()
 {
@@ -72,23 +72,7 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
+
     solve();
     return 0;
 }
-cin >> s;
-n = s.size();
-if (n & 1 || s[0] == ')' || s[n - 1] == '(')
-{
-    cout << "NO"
-         << "\n";
-    return;
-}
-else
-{
-    int opening = 0;
-    int closing = 0;
-};
-vector<string> v;
-v.push_back("safskfd");
-v.push_back("dsfda");
-debug(v);
