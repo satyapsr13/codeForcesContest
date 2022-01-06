@@ -58,13 +58,39 @@ void _print(vector<T> v)
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> l >> k;
-    cin >> n;
+    string s;
+    cin >> s;
+    n = s.size();
 
-    l = l + 1000000007 + 1000000007;
-    k = k + 1000000007+ 1000000007;
-    int arr[6] = {l, k, k - l, -l, -k, l - k};
-    cout << (arr[(n - 1) % 6] + 1000000007 ) %   1000000007;
+    for (int i = 0; i < n - 1; ++i)
+    {
+        int t = (s[i] - '0');
+        l = (s[n - 1] - '0');
+        if ((t & 1) == 0 and t < l)
+        {
+            swap(s[i], s[n - 1]);
+            cout << s;
+            cout << "\n";
+            return;
+        }
+    }
+
+    for (int i = n - 2; i >= 0; --i)
+    {
+        int t = (s[i] - '0');
+        l = (s[n - 1] - '0');
+        if ((t & 1 )== 0)
+        {
+            swap(s[i], s[n - 1]);
+            cout << s;
+            cout << "\n";
+            return;
+        }
+    }
+
+    cout << "-1"
+         << "\n";
+    return;
 }
 signed main()
 {
@@ -72,7 +98,6 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-
-    solve();
+           solve();
     return 0;
 }

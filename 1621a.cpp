@@ -58,13 +58,38 @@ void _print(vector<T> v)
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> l >> k;
-    cin >> n;
-
-    l = l + 1000000007 + 1000000007;
-    k = k + 1000000007+ 1000000007;
-    int arr[6] = {l, k, k - l, -l, -k, l - k};
-    cout << (arr[(n - 1) % 6] + 1000000007 ) %   1000000007;
+    cin >> n >> k;
+    if (n+1 < k * 2)
+    {
+        cout << "-1"
+             << "\n";
+        return;
+        /* code */
+    }
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < n; ++j)
+        {
+            if (i == j)
+            {
+                if (++ans & 1 and ++sum<=k)
+                {
+                    cout << "R";
+                }
+                else
+                {
+                    cout << ".";
+                }
+            }
+            else
+            {
+                cout << ".";
+                // return;
+                /* code */
+            }
+        }
+        cout << "\n";
+    }
 }
 signed main()
 {
@@ -72,7 +97,9 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-
-    solve();
+    int Test_Cases;
+    cin >> Test_Cases;
+    while (Test_Cases--)
+        solve();
     return 0;
 }
