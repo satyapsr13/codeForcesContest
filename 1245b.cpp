@@ -58,93 +58,89 @@ void _print(vector<T> v)
 // const int d4x[4] = {-1, 0, 1, 0}, d4y[4] = {0, 1, 0, -1};
 // const int d8x[8] = {-1, -1, 0, 1, 1, 1, 0, -1}, d8y[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
-
-vector<vector<int>> tree(100009);
-int deg[100009] = {0};
-
-struct hash_pair
-{
-    template <class T1, class T2>
-    size_t operator()(const pair<T1, T2> &p) const
-    {
-        auto hash1 = hash<T1>{}(p.first);
-        auto hash2 = hash<T2>{}(p.second);
-        return hash1 ^ hash2;
-    }
-};
-int invert_tt(int a)
-{
-    if (a == 2)
-        return 3;
-    else
-        return 2;
-}
-bool vis[100008] = {0};
-
-map<pair<int, int>, int> mp1;
-// map<int, pair<int, int>> mp2;
-vector<int> ans(100008, 0);
-int tt = 2;
-void dfs(int n, int parent)
-{
-    vis[n] = 1;
-    for (auto &it : tree[n])
-    {
-        tt = invert_tt(tt);
-        // mp1[{parent, it}] = tt;
-        // mp1[{it, parent}] = tt;
-        ans[mp1[{parent, it}]] = tt;
-        if (!vis[it])
-            dfs(it, n);
-    }
-}
-
 void solve()
 {
-    int n, k,  l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
+    int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
     cin >> n;
-
-    for (int i = 0; i < n - 1; ++i)
+    int a, b, c;
+    cin >> a >> b >> c;
+    string s;
+    cin >> s;
+    int win = 0;
+    string aa;
+    // int n = s.size();
+    for (int i = 0; i < n; ++i)
     {
-
-        int a, b;
-        cin >> a >> b;
-        tree[a].push_back(b);
-        tree[b].push_back(a);
-        deg[b]++;
-        // mp2[i] = {a, b};
-        mp1[{a, b}] = i;
-        mp1[{b, a}] = i;
-
-        deg[a]++;
-        if (deg[a] > 2 || deg[b] > 2)
+        if (s[i] == 'R')
         {
-            // db1(a);
-            // db1(b);
-            cout << "-1"
-                 << "\n";
-            return;
+            if (b > 0)
+            {
+                win++;
+                aa.push_back('P');
+                b--;
+            }
+            else if (a > 0)
+            {
+                aa.push_back('R');
+                a--;
+            }
+            else
+            {
+                aa.push_back('S');
+                c--;
+            }
         }
-        if (deg[a] == 1)
-            l = a;
-        if (deg[b] == 1)
-            l = b;
-    }
+        else if (s[i] == 'P')
+        {
+            if (c > 0)
+            {
+                win++;
+                c--;
 
-    for (int i = 1; i < n; ++i)
+                aa.push_back('S');
+            }
+            else if (b > 0)
+            {
+                aa.push_back('P');
+                b--;
+            }
+            else
+            {
+                aa.push_back('R');
+                a--;
+            }
+        }
+        else if (s[i] == 'S')
+        {
+            if (a > 0)
+            {
+                win++;
+                a--;
+
+                aa.push_back('R');
+            }
+            else if (c > 0)
+            {
+                aa.push_back('S');
+                c--;
+            }
+            else
+            {
+                aa.push_back('P');
+                b--;
+            }
+        }
+    }
+    if (win >= round(n * 1.0 / 2))
     {
-
-    dfs(i, i);
+        cout << "YES"
+             << "\n"
+             << aa << endl;
+        return;
+        /* code */
     }
-
-
-    for (int i = 0; i < n - 1; ++i)
-    {
-        // cout << mp1[{mp2[i].first, mp2[i].second}];
-        cout << ans[i];
-        cout << " ";
-    }
-    cout << "\n";
+    cout << "NO" << endl;
+    return;
 }
 signed main()
 {
@@ -155,11 +151,6 @@ signed main()
     int Test_Cases;
     cin >> Test_Cases;
     while (Test_Cases--)
-    {
-        mp1.clear();
-        // mp2.clear();
-        memset(deg, 0, sizeof(deg));
         solve();
-    }
     return 0;
 }

@@ -43,7 +43,7 @@ void _print(int t)
 void _print(string t) { cerr << t; }
 void _print(char t) { cerr << t; }
 void _print(double t) { cerr << t; }
- template <class T>
+template <class T>
 void _print(vector<T> v)
 {
     cerr << "-> [ ";
@@ -64,11 +64,11 @@ void solve()
     int mx = INT_MIN;
     int n = s.size();
 
-for (int i = 0; i < n - 1; ++i)
-{
-    int first = s[i] - '0';
-    int sec = s[i + 1] - '0';
-    mx = max(mx, first + sec);
+    for (int i = 0; i < n - 1; ++i)
+    {
+        int first = s[i] - '0';
+        int sec = s[i + 1] - '0';
+        mx = max(mx, first + sec);
     }
     for (int i = n - 1; i > 0; --i)
     {
@@ -78,9 +78,9 @@ for (int i = 0; i < n - 1; ++i)
         if (first + sec == mx)
         {
             string ss = to_string(mx);
-            s[i] = ss[0];
-            if (s[1] != '0')
-                s[i - 1] = ss[1];
+            if (ss[1] != '0')
+                s[i] = ss[1];
+            s[i - 1] = ss[0];
             break;
         }
     }
@@ -99,3 +99,4 @@ signed main()
         solve();
     return 0;
 }
+
