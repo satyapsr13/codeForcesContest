@@ -56,31 +56,78 @@ void _print(vector<T> v)
     cerr << "]";
 }
 // const int d4x[4] = {-1, 0, 1, 0}, d4y[4] = {0, 1, 0, -1};
-// const int d8x[8] = {-1, -1, 0, 1, 1, 1, 0, -1}, d8y[8] = {0, 1, 1, 1, 0, -1, -1, -1};
+const int d8x[8] = {-1, -1, 0, 1, 1, 1, 0, -1}, d8y[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
+vector<vector<int>> tree(1005);
+bool vis[1005] = {0};
+bool ttt = 1;
+void dfs(int node)
+{
+    vis[node] = 1;
+
+    if (tree[node].size() > 1 and tree[node].size() < ((node == 1) ? 3 : 4))
+    {
+        db1(node);
+        ttt = 0;
+        return;
+    }
+
+    for (auto &it : tree[node])
+    {
+        // cout << it << " ";
+        if (!vis[it])
+            dfs(it);
+    }
+}
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    // cin >> n;
-    string s;
-    cin >> s;
-    string p;
-    cin >> p;
-    n = s.size();
-    
-    for (int i = 0; i < n; ++i)
-    {
-        mn = INT_MAX;
-        for (int j = 0; j < p.size(); ++j)
-        {
+    cin >> n;
 
-            int t = abs(s[i] - p[j]);
-            mn = min(mn, min(26-t,t));
-        }
-        count += mn;
+    for (int i = 0; i < n - 1; ++i)
+    {
+        cin >> l;
+
+        tree[l].push_back(i + 2);
+        tree[i + 2].push_back(l);
     }
-    cout << count << "\n";
+    // dfs(l);
+
+    for (int i = 1; i <= n; ++i)
+    {
+        int count = 0;
+        if (tree[i].size() > 1)
+        {
+            for (auto &it : tree[i])
+            {
+                if (tree[it].size() == 1)
+                {
+                    count++;
+                    /* code */
+                }
+
+                // cout << it<<" ";
+            }
+            if (count<3)
+            {cout << "NO"<<endl;
+            return;
+                /* code */
+            }
+
+        }
+    }cout <<"YES"<<"\n";
     return;
+    if (ttt)
+    {
+        cout << "YES"
+             << "\n";
+        return;
+    }
+    else
+    {
+        cout << "NO" << endl;
+        return;
+    }
 }
 signed main()
 {
@@ -88,13 +135,6 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    int Test_Cases;
-    cin >> Test_Cases;
-    int tt = 1;
-    while (Test_Cases--)
-    {
-        cout << "Case #" << tt++ << ": ";
-        solve();
-    }
+    solve();
     return 0;
 }

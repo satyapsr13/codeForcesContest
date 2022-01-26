@@ -58,29 +58,117 @@ void _print(vector<T> v)
 // const int d4x[4] = {-1, 0, 1, 0}, d4y[4] = {0, 1, 0, -1};
 // const int d8x[8] = {-1, -1, 0, 1, 1, 1, 0, -1}, d8y[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
-void solve()
+vector<vector<pair<int, int>>> tree(100005);
+queue<int> ans;
+bool vis[100005] = {0};
+bool mark[100005] = {0};
+
+void dfs(pair<int, int> it1)
 {
-    int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    // cin >> n;
-    string s;
-    cin >> s;
-    string p;
-    cin >> p;
-    n = s.size();
-    
-    for (int i = 0; i < n; ++i)
+    int node = it1.first;
+    vis[node] = true;
+    int is1 = it1.second;
+    bool l = 0;
+    if (tree[node].size() == 1)
     {
-        mn = INT_MAX;
-        for (int j = 0; j < p.size(); ++j)
+        if (is1)
         {
 
-            int t = abs(s[i] - p[j]);
-            mn = min(mn, min(26-t,t));
+            // db1(node);
+            ans.push(node);
         }
-        count += mn;
+        return;
+        /* code */
     }
-    cout << count << "\n";
+    for (auto &it : tree[node])
+    {
+        // cout << it<<" ";
+
+        if (!vis[it.first])
+        {
+            // db2(it.first, it.second);
+            if (is1)
+            {
+                if (it.second == 0)
+                {
+                    l = 1;
+                    // db1(it.first);
+                    break;
+                }
+            }
+            // dfs(it);
+            /* code */
+        }
+    }
+    // cout << "\n-------------------\n  ";
+    if (!l)
+    {
+        // db1(node);
+        ans.push(node);
+    }
+
+    for (auto &it : tree[node])
+    {
+        if (!vis[it.first])
+        {
+            // if (is1)
+            // {
+            //     if (it.second == 1)
+            //     {
+            //         if (!mark[node])
+            //             ans.push(node);
+            //         mark[node] = 1;
+            //     }
+            // }
+            dfs(it);
+            /* code */
+        }
+
+        // cout << it<<" ";
+    }
+}
+void solve()
+{
+    int n, k, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
+    cin >> n;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int a, b;
+        cin >> a >> b;
+        if (a == -1)
+        {
+            l = i + 1;
+            continue;
+        }
+
+        tree[a].push_back({i + 1, b});
+        tree[i + 1].push_back({a, b});
+    }
+    vis[l] = true;
+    for (auto &it : tree[l])
+    {
+        // cout << it << " ";
+        dfs(it);
+    }
+
+if (ans.size()==0)
+{
+    cout <<"-1"<<"\n";  
     return;
+    /* code */
+}
+
+    // db1(ans.size());
+    while (!ans.empty())
+    {
+        int node = ans.front();
+        ans.pop();
+        cout << node << " ";
+        /* code */
+    }
+
+    cout << "\n";
 }
 signed main()
 {
@@ -88,13 +176,6 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    int Test_Cases;
-    cin >> Test_Cases;
-    int tt = 1;
-    while (Test_Cases--)
-    {
-        cout << "Case #" << tt++ << ": ";
-        solve();
-    }
+    solve();
     return 0;
 }

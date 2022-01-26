@@ -61,26 +61,32 @@ void _print(vector<T> v)
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    // cin >> n;
-    string s;
-    cin >> s;
-    string p;
-    cin >> p;
-    n = s.size();
-    
+    cin >> n >> k;
+    unordered_map<int, bool> mp;
+    for (int i = 0; i < k; ++i)
+    {
+        int a, b, c;
+        cin >> a >> b >> c;
+        mp[b] = 1;
+    }
+
     for (int i = 0; i < n; ++i)
     {
-        mn = INT_MAX;
-        for (int j = 0; j < p.size(); ++j)
+        if (!mp[i + 1])
         {
-
-            int t = abs(s[i] - p[j]);
-            mn = min(mn, min(26-t,t));
+            ans = i + 1;
+            break;
         }
-        count += mn;
     }
-    cout << count << "\n";
-    return;
+
+    for (int i = 0; i < n; ++i)
+    {
+        if (ans != i + 1)
+        {
+            cout << ans << " " << i + 1 << endl;
+            
+        }
+    }
 }
 signed main()
 {
@@ -90,11 +96,7 @@ signed main()
     cout.tie(nullptr);
     int Test_Cases;
     cin >> Test_Cases;
-    int tt = 1;
     while (Test_Cases--)
-    {
-        cout << "Case #" << tt++ << ": ";
         solve();
-    }
     return 0;
 }

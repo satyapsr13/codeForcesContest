@@ -60,27 +60,42 @@ void _print(vector<T> v)
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
 void solve()
 {
-    int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    // cin >> n;
-    string s;
-    cin >> s;
-    string p;
-    cin >> p;
-    n = s.size();
-    
+    int n, k, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
+    cin >> n;
+    vector<int> v;
+    map<int, int> mp;
+    set<int> st;
+
+    for (int i = 0, x; i < n; ++i)
+    {
+        cin >> x;
+        v.push_back(x);
+        mp[x]++;
+    }
+    vector<int> ans;
+
     for (int i = 0; i < n; ++i)
     {
-        mn = INT_MAX;
-        for (int j = 0; j < p.size(); ++j)
+        mp[v[i]]--;
+        st.insert(v[i]);
+        int xx = 0;
+        while (st.find(xx)!=st.end())
         {
-
-            int t = abs(s[i] - p[j]);
-            mn = min(mn, min(26-t,t));
+            
+            xx++;
         }
-        count += mn;
+        if (mp[xx] == 0)
+        {
+            ans.push_back(xx);
+            st.clear();
+        }
     }
-    cout << count << "\n";
-    return;
+    cout << ans.size() << endl;
+    for (auto &it : ans)
+    {
+        cout << it << " ";
+    }
+    cout << "\n";
 }
 signed main()
 {
@@ -90,11 +105,7 @@ signed main()
     cout.tie(nullptr);
     int Test_Cases;
     cin >> Test_Cases;
-    int tt = 1;
     while (Test_Cases--)
-    {
-        cout << "Case #" << tt++ << ": ";
         solve();
-    }
     return 0;
 }

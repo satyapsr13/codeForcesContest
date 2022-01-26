@@ -58,29 +58,48 @@ void _print(vector<T> v)
 // const int d4x[4] = {-1, 0, 1, 0}, d4y[4] = {0, 1, 0, -1};
 // const int d8x[8] = {-1, -1, 0, 1, 1, 1, 0, -1}, d8y[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
+vector<vector<int>> tree(100005);
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    // cin >> n;
-    string s;
-    cin >> s;
-    string p;
-    cin >> p;
-    n = s.size();
-    
-    for (int i = 0; i < n; ++i)
-    {
-        mn = INT_MAX;
-        for (int j = 0; j < p.size(); ++j)
-        {
+    cin >> n;
 
-            int t = abs(s[i] - p[j]);
-            mn = min(mn, min(26-t,t));
-        }
-        count += mn;
+    for (int i = 0; i < n - 1; ++i)
+    {
+        int a, b;
+        cin >> a >> b;
+        tree[a].push_back(b);
+        tree[b].push_back(a);
     }
-    cout << count << "\n";
-    return;
+    int count1 = 0;
+    int count2 = 0;
+    bool vis[100005] = {0};
+    queue<pair<int, bool>> q;
+    q.push({1, 1});
+    while (!q.empty())
+    {
+        int node = q.front().first;
+        bool l = q.front().second;
+        q.pop();
+        if (l)
+            count1++;
+        else
+            count2++;
+        vis[node] = 1;
+        for (auto &it : tree[node])
+        {
+            if (!vis[it])
+            {
+                q.push({it, !l});
+                /* code */
+            }
+
+            //  cout << it<<" ";
+        }
+        /* code */
+    }
+    cout << (count1 * count2) - (n - 1);
+    cout << "\n";
 }
 signed main()
 {
@@ -88,13 +107,6 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    int Test_Cases;
-    cin >> Test_Cases;
-    int tt = 1;
-    while (Test_Cases--)
-    {
-        cout << "Case #" << tt++ << ": ";
-        solve();
-    }
+    solve();
     return 0;
 }

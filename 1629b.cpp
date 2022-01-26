@@ -58,28 +58,45 @@ void _print(vector<T> v)
 // const int d4x[4] = {-1, 0, 1, 0}, d4y[4] = {0, 1, 0, -1};
 // const int d8x[8] = {-1, -1, 0, 1, 1, 1, 0, -1}, d8y[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
+
+int countOdd(int L, int R)
+{
+
+    int N = (R - L) / 2;
+
+    // if either R or L is odd
+    if (R % 2 != 0 || L % 2 != 0)
+        N += 1;
+
+    return N;
+}
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    // cin >> n;
-    string s;
-    cin >> s;
-    string p;
-    cin >> p;
-    n = s.size();
-    
-    for (int i = 0; i < n; ++i)
-    {
-        mn = INT_MAX;
-        for (int j = 0; j < p.size(); ++j)
-        {
+    cin >> n >> k >> l;
 
-            int t = abs(s[i] - p[j]);
-            mn = min(mn, min(26-t,t));
+    if (n == k)
+    {
+        if (n == 1)
+        {
+            cout << "NO" << endl;
+            return;
+           
         }
-        count += mn;
+        cout << "YES"
+             << "\n";
+        return;
     }
-    cout << count << "\n";
+    int odd = countOdd(n, k);
+    int eve = (k - n + 1) - odd;
+
+    if (odd <= l)
+    {
+        cout << "YES"
+             << "\n";
+        return;
+    }
+    cout << "NO" << endl;
     return;
 }
 signed main()
@@ -90,11 +107,7 @@ signed main()
     cout.tie(nullptr);
     int Test_Cases;
     cin >> Test_Cases;
-    int tt = 1;
     while (Test_Cases--)
-    {
-        cout << "Case #" << tt++ << ": ";
         solve();
-    }
     return 0;
 }

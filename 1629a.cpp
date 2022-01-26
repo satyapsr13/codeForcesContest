@@ -1,7 +1,7 @@
 
 #include <bits/stdc++.h>
 using namespace std;
-#define int long long int
+// #define int long long int
 #define count_1 __builtin_popcountll
 long long power(long long a, long long b, long long md)
 {
@@ -58,29 +58,48 @@ void _print(vector<T> v)
 // const int d4x[4] = {-1, 0, 1, 0}, d4y[4] = {0, 1, 0, -1};
 // const int d8x[8] = {-1, -1, 0, 1, 1, 1, 0, -1}, d8y[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
+
+bool cmp(pair<int, int> a, pair<int, int> b)
+{
+    // return a>b;
+    if (a.first == b.first)
+        return a.second > b.second;
+
+    return a.first < b.first;
+}
+
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    // cin >> n;
-    string s;
-    cin >> s;
-    string p;
-    cin >> p;
-    n = s.size();
-    
+    cin >> n >> k;
+
+    vector<int> v(n);
+    vector<pair<int, int>> vp;
+
+    // sort(vp.begin(), vp.end());
+
+    for (int i = 0, x; i < n; ++i)
+    {
+        cin >> v[i];
+    }
+
     for (int i = 0; i < n; ++i)
     {
-        mn = INT_MAX;
-        for (int j = 0; j < p.size(); ++j)
-        {
-
-            int t = abs(s[i] - p[j]);
-            mn = min(mn, min(26-t,t));
-        }
-        count += mn;
+        int x;
+        cin >> x;
+        vp.push_back({v[i], x});
     }
-    cout << count << "\n";
-    return;
+
+    sort(vp.begin(), vp.end(), cmp);
+    sum = k;
+    for (auto &it : vp)
+    {
+        // cout << it<<" ";
+        if (it.first <= sum)
+            sum += it.second;
+    }
+    cout << sum;cout <<"\n" ;
+
 }
 signed main()
 {
@@ -90,11 +109,7 @@ signed main()
     cout.tie(nullptr);
     int Test_Cases;
     cin >> Test_Cases;
-    int tt = 1;
     while (Test_Cases--)
-    {
-        cout << "Case #" << tt++ << ": ";
         solve();
-    }
     return 0;
 }
