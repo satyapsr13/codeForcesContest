@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long int
@@ -6,8 +7,11 @@ long long power(long long a, long long b, long long md)
 {
     return (!b ? 1 : (b & 1 ? a * power(a * a % md, b / 2, md) % md : power(a * a % md, b / 2, md) % md));
 }
-#define db(x) cout << "\t\n" \
-                   << #x << "\t" << x << "\t\n"
+#define db1(x) cout << "\t\n" \
+                    << #x << "\t" << x << "\t\n"
+#define db2(x, y) cout << "\t\n"                     \
+                       << #x << "\t" << x << " <-> " \
+                       << #y << "\t" << y << "\t\n"
 #define dbarr(arr)           \
     cout << #arr << " ~ [ "; \
     for (auto n : arr)       \
@@ -19,6 +23,7 @@ long long power(long long a, long long b, long long md)
         cout << n.first << "-" << n.second << " "; \
     cout << "]" << endl;
 #define endl "\n"
+
 #define all(v) v.begin(), v.end()
 #define valueupto(x, y) fixed << setprecision(x) << y
 //#define PI 3.141592653589793238462
@@ -54,62 +59,76 @@ void _print(vector<T> v)
 // const int d4x[4] = {-1, 0, 1, 0}, d4y[4] = {0, 1, 0, -1};
 // const int d8x[8] = {-1, -1, 0, 1, 1, 1, 0, -1}, d8y[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
-
-vector<int> v(1000001, 0);
-void loadPrimes()
+bool find(string s, int mid, int k)
 {
-    vector<bool> isPrime(1000001, 1);
-
-    for (int i = 2; i < 1000001; ++i)
+    int sum = 0;
+    int count = 0;
+    for (int i = mid-1; i >= 0; --i)
     {
-        if (isPrime[i])
-        {
 
-            for (int j = i * i; j < 1000001; j += i)
-            {
-                isPrime[j] = 0;
-            }
-        }
-    }
-
-    for (int i = 0; i < 1000001; ++i)
-    {
-        if (isPrime[i])
+        s[i] = (sum + (s[i] - '0')) % 10 + '0';
+        if (s[i] == '0')
         {
-            // v.push_back(1);
-            v[i] = 1;
+            // count++;
+            continue;
+            /* code */
         }
+
+        count += 10 - (s[i] - '0');
+        sum += (10 - (s[i] - '0'));
     }
+    // int cnt = 0;
+    // for (int i = mid-1; i >= 0; i--)
+    // {
+    //     int now = (cnt + s[i] - '0') % 10;
+    //     if (now != 0)
+    //     {
+    //         cnt += 10 - now;
+    //     }
+    // }
+    // return cnt <= k;
+    // // db2(mid,count);
+    return count <= k;
 }
 void solve()
 {
-    int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> n;
-    // cout << 2 << " " << n - 2;
-    // cout << v[11];
-    for (int i = 4; i <= n; ++i)
+    int n, k, ans = 0, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
+    cin >> n >> k;
+
+    string s;
+    cin >> s;
+
+
+    int l = 0, r = n;
+    while (l <= r)
     {
-        if (v[i] == 0 and v[n - i] == 0)
+        int mid = l + ((r - l) / 2);
+        if (find(s, mid, k))
         {
-            cout << i << " " << n - i;
-            cout << "\n";
-            return;
+            ans = l;
+            l = mid + 1;
+        }
+        else
+        {
+            r = mid - 1;
+            ans = r;
         }
     }
+    cout << ans  << "\n";
+    return;
+    return;
 }
 signed main()
 {
 
     ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    loadPrimes();
-    // int t = 1;
-    // cin >> t;
-    // for (int i = 1; i <= t; ++i)
-    // {
-    //     cout << "Case #" << i << ": ";
-    //     solve();
-    // }
-    solve();
+    cin.tie(nullptr);
+
+    cout.tie(nullptr);
+
+    int Test_Cases;
+    cin >> Test_Cases;
+    while (Test_Cases--)
+        solve();
+    return 0;
 }
