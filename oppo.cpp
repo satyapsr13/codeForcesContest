@@ -7,8 +7,11 @@ long long power(long long a, long long b, long long md)
 {
     return (!b ? 1 : (b & 1 ? a * power(a * a % md, b / 2, md) % md : power(a * a % md, b / 2, md) % md));
 }
-#define db(x) cout << "\t\n" \
-                   << #x << "\t" << x << "\t\n"
+#define db1(x) cout << "\t\n" \
+                    << #x << "\t" << x << "\t\n"
+#define db2(x, y) cout << "\t\n"                     \
+                       << #x << "\t" << x << " <-> " \
+                       << #y << "\t" << y << "\t\n"
 #define dbarr(arr)           \
     cout << #arr << " ~ [ "; \
     for (auto n : arr)       \
@@ -58,13 +61,57 @@ void _print(vector<T> v)
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> l >> k;
     cin >> n;
+    int arr[31] = {0};
 
-    l = l + 1000000007 + 1000000007;
-    k = k + 1000000007 + 1000000007;
-    int arr[6] = {l, k, k - l, -l, -k, l - k};
-    cout << (arr[(n - 1) % 6] + 1000000007) % 1000000007;
+    arr[2] = 1;
+    arr[3] = 1;
+    arr[5] = 1;
+    arr[6] = 1;
+    arr[7] = 1;
+    arr[10] = 1;
+    arr[11] = 1;
+    arr[13] = 1;
+    arr[14] = 1;
+    arr[15] = 1;
+    arr[17] = 1;
+    arr[19] = 1;
+    arr[21] = 1;
+    arr[22] = 1;
+    arr[23] = 1;
+    arr[26] = 1;
+    arr[29] = 1;
+    vector<int> v(n);
+
+    for (int i = 0, x; i < n; ++i)
+    {
+        cin >> v[i];
+    }
+    int start = 0;
+    int end = 0;
+
+    for (int i = 0; i < n; ++i)
+    {
+        if (arr[v[i]]==1)
+        {
+            start = i;
+
+            for (int j = i + 1; j < n; ++j)
+            {
+                if (arr[v[j]] == 0)
+                {
+                    end = j - 1;
+                    i = j + 1;
+                    break;
+                 }
+            }
+            db2(start, end);
+            ans += (1 << (end - start + 1));
+           
+        }
+    }
+    cout << ans << "\n";
+    return;
 }
 signed main()
 {
@@ -72,7 +119,6 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-
     solve();
     return 0;
 }

@@ -7,8 +7,11 @@ long long power(long long a, long long b, long long md)
 {
     return (!b ? 1 : (b & 1 ? a * power(a * a % md, b / 2, md) % md : power(a * a % md, b / 2, md) % md));
 }
-#define db(x) cout << "\t\n" \
-                   << #x << "\t" << x << "\t\n"
+#define db1(x) cout << "\t\n" \
+                    << #x << "\t" << x << "\t\n"
+#define db2(x, y) cout << "\t\n"                     \
+                       << #x << "\t" << x << " <-> " \
+                       << #y << "\t" << y << "\t\n"
 #define dbarr(arr)           \
     cout << #arr << " ~ [ "; \
     for (auto n : arr)       \
@@ -55,16 +58,62 @@ void _print(vector<T> v)
 // const int d4x[4] = {-1, 0, 1, 0}, d4y[4] = {0, 1, 0, -1};
 // const int d8x[8] = {-1, -1, 0, 1, 1, 1, 0, -1}, d8y[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
+bool isEvenAndOdd(int a, int b)
+{
+    return (((a & 1) and !(b & 1)) || (!(a & 1) and (b & 1)));
+}
+bool isOddAndOdd(int a, int b)
+{
+    return ((a & 1) and (b & 1));
+}
 void solve()
 {
-    int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> l >> k;
+    int n, k, ans = 0, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
     cin >> n;
+    bool l = false;
 
-    l = l + 1000000007 + 1000000007;
-    k = k + 1000000007 + 1000000007;
-    int arr[6] = {l, k, k - l, -l, -k, l - k};
-    cout << (arr[(n - 1) % 6] + 1000000007) % 1000000007;
+    int a, b;
+    int sum2 = 0;
+    for (int i = 0; i < n; ++i)
+    {
+        cin >> a >> b;
+
+        l = l || isEvenAndOdd(a, b);
+        count += isEvenAndOdd(a, b);
+        sum += a;
+        sum2 += b;
+    }
+    if (isOddAndOdd(sum, sum2)  )
+
+    {
+        cout << "-1"
+             << "\n";
+        return; /* code */
+    }
+
+    if (isEvenAndOdd(sum, sum2))
+    {
+        if (n == 1)
+        {
+            cout << "-1"
+                 << "\n";
+            return;
+            /* code */
+        }
+        else
+        {
+            cout << "1"
+                 << "\n";
+            return;
+        }
+        /* code */
+    }
+    else
+    {
+        cout << "0"
+             << "\n";
+        return;
+    }
 }
 signed main()
 {
@@ -72,7 +121,6 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-
     solve();
     return 0;
 }

@@ -7,8 +7,11 @@ long long power(long long a, long long b, long long md)
 {
     return (!b ? 1 : (b & 1 ? a * power(a * a % md, b / 2, md) % md : power(a * a % md, b / 2, md) % md));
 }
-#define db(x) cout << "\t\n" \
-                   << #x << "\t" << x << "\t\n"
+#define db1(x) cout << "\t\n" \
+                    << #x << "\t" << x << "\t\n"
+#define db2(x, y) cout << "\t\n"                     \
+                       << #x << "\t" << x << " <-> " \
+                       << #y << "\t" << y << "\t\n"
 #define dbarr(arr)           \
     cout << #arr << " ~ [ "; \
     for (auto n : arr)       \
@@ -58,13 +61,9 @@ void _print(vector<T> v)
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> l >> k;
     cin >> n;
 
-    l = l + 1000000007 + 1000000007;
-    k = k + 1000000007 + 1000000007;
-    int arr[6] = {l, k, k - l, -l, -k, l - k};
-    cout << (arr[(n - 1) % 6] + 1000000007) % 1000000007;
+    cout << n - 3 << " 1 1 1\n";
 }
 signed main()
 {
@@ -72,7 +71,9 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-
-    solve();
+    int Test_Cases;
+    cin >> Test_Cases;
+    while (Test_Cases--)
+        solve();
     return 0;
 }

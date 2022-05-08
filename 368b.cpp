@@ -7,8 +7,11 @@ long long power(long long a, long long b, long long md)
 {
     return (!b ? 1 : (b & 1 ? a * power(a * a % md, b / 2, md) % md : power(a * a % md, b / 2, md) % md));
 }
-#define db(x) cout << "\t\n" \
-                   << #x << "\t" << x << "\t\n"
+#define db1(x) cout << "\t\n" \
+                    << #x << "\t" << x << "\t\n"
+#define db2(x, y) cout << "\t\n"                     \
+                       << #x << "\t" << x << " <-> " \
+                       << #y << "\t" << y << "\t\n"
 #define dbarr(arr)           \
     cout << #arr << " ~ [ "; \
     for (auto n : arr)       \
@@ -58,13 +61,36 @@ void _print(vector<T> v)
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> l >> k;
-    cin >> n;
-
-    l = l + 1000000007 + 1000000007;
-    k = k + 1000000007 + 1000000007;
-    int arr[6] = {l, k, k - l, -l, -k, l - k};
-    cout << (arr[(n - 1) % 6] + 1000000007) % 1000000007;
+    cin >> n >> k;
+    vector<int> v(n);
+    vector<int> v1(n);
+    int arr[100001] = {0};
+    for (int i = 0, x; i < n; ++i)
+    {
+        cin >> v[i];
+    }
+    v1[n - 1] = 1;
+    arr[v[n - 1]] = 1;
+    for (int i = n - 2; i >= 0; --i)
+    {
+        if (arr[v[i]] != 0)
+        {
+            v1[i] = v1[i + 1];
+            /* code */
+        }
+        else
+        {
+            arr[v[i]] = 1;
+            v1[i] = v1[i + 1] + 1;
+        }
+    }
+    int a;
+    while (k--)
+    {
+        cin >> a;
+        cout << v1[a - 1] << endl;
+        /* code */
+    }
 }
 signed main()
 {
@@ -72,7 +98,6 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-
     solve();
     return 0;
 }

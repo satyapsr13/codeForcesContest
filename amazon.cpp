@@ -7,8 +7,11 @@ long long power(long long a, long long b, long long md)
 {
     return (!b ? 1 : (b & 1 ? a * power(a * a % md, b / 2, md) % md : power(a * a % md, b / 2, md) % md));
 }
-#define db(x) cout << "\t\n" \
-                   << #x << "\t" << x << "\t\n"
+#define db1(x) cout << "\t\n" \
+                    << #x << "\t" << x << "\t\n"
+#define db2(x, y) cout << "\t\n"                     \
+                       << #x << "\t" << x << " <-> " \
+                       << #y << "\t" << y << "\t\n"
 #define dbarr(arr)           \
     cout << #arr << " ~ [ "; \
     for (auto n : arr)       \
@@ -57,14 +60,59 @@ void _print(vector<T> v)
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
 void solve()
 {
-    int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> l >> k;
-    cin >> n;
+    string s;
+    cin >> s;
+    string p;
+    cin >> p;
+    map<char, int> mp1;
+    map<char, int> mp2;
 
-    l = l + 1000000007 + 1000000007;
-    k = k + 1000000007 + 1000000007;
-    int arr[6] = {l, k, k - l, -l, -k, l - k};
-    cout << (arr[(n - 1) % 6] + 1000000007) % 1000000007;
+    for (int i = 0; i < s.size(); ++i)
+    {
+        mp1[s[i]]++;
+    }
+
+    for (int i = 0; i < p.size(); ++i)
+    {
+        mp2[p[i]]++;
+    }
+    int fst;
+    int snd;
+    for (int i = 0; i < s.size(); ++i)
+    {
+        if (mp1[s[i]] > mp2[s[i]])
+        {
+            mp1[s[i]]--;
+            /* code */
+        }
+        else
+        {
+            fst = i;
+            cout << fst;
+            break;
+        }
+    }
+    for (int i = s.size() - 1; i >= fst; --i)
+    {
+
+        debug(s[i]);
+        debug(mp2[s[i]]);
+        if (mp1[s[i]] > mp2[s[i]])
+        {
+            mp1[s[i]]--;
+            /* code */
+        }
+        else
+        {
+            snd = i;
+            cout << "\n";
+
+            cout << snd;
+            break;
+        }
+    }
+    // cout << "dsf";
+    cout << s.substr(fst, snd - fst + 1);
 }
 signed main()
 {
@@ -72,7 +120,6 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-
     solve();
     return 0;
 }

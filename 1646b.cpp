@@ -7,8 +7,11 @@ long long power(long long a, long long b, long long md)
 {
     return (!b ? 1 : (b & 1 ? a * power(a * a % md, b / 2, md) % md : power(a * a % md, b / 2, md) % md));
 }
-#define db(x) cout << "\t\n" \
-                   << #x << "\t" << x << "\t\n"
+#define db1(x) cout << "\t\n" \
+                    << #x << "\t" << x << "\t\n"
+#define db2(x, y) cout << "\t\n"                     \
+                       << #x << "\t" << x << " <-> " \
+                       << #y << "\t" << y << "\t\n"
 #define dbarr(arr)           \
     cout << #arr << " ~ [ "; \
     for (auto n : arr)       \
@@ -58,13 +61,41 @@ void _print(vector<T> v)
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> l >> k;
     cin >> n;
+    vector<int> v(n);
 
-    l = l + 1000000007 + 1000000007;
-    k = k + 1000000007 + 1000000007;
-    int arr[6] = {l, k, k - l, -l, -k, l - k};
-    cout << (arr[(n - 1) % 6] + 1000000007) % 1000000007;
+    for (int i = 0, x; i < n; ++i)
+    {
+        cin >> v[i];
+    }
+
+    sort(v.begin(), v.end());
+
+    int sum1 = v[0] + v[1];
+    int sum2 = v[n - 1];
+    int i = 1;
+    int j = n - 1;
+    while (i < j)
+    {
+        if (sum1 < sum2)
+        {
+            cout << "YES"
+                 << "\n";
+            return;
+            /* code */
+        }
+        else
+        {
+            j--;
+            i++;
+            sum1 += v[i];
+            sum2 += v[j];
+        }
+
+        /* code */
+    }
+    cout << "NO" << endl;
+    return;
 }
 signed main()
 {
@@ -72,7 +103,9 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-
-    solve();
+    int Test_Cases;
+    cin >> Test_Cases;
+    while (Test_Cases--)
+        solve();
     return 0;
 }

@@ -57,28 +57,82 @@ void _print(vector<T> v)
 }
 // const int d4x[4] = {-1, 0, 1, 0}, d4y[4] = {0, 1, 0, -1};
 // const int d8x[8] = {-1, -1, 0, 1, 1, 1, 0, -1}, d8y[8] = {0, 1, 1, 1, 0, -1, -1, -1};
-////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
-void solve()
-{
-    int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> n;
-    vector<int> v(n);
+////vector<int> primes = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41,      43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
 
-    for (int i = 0, x; i < n; ++i)
+set<int> st;
+int nn;
+int dp[100];
+int find(vector<int> &v, int i, int rem)
+
+{
+    if (i >= nn)
     {
-        cin >> v[i];
+        return rem == 0 ? 0 : 1000;
+        /* code */
     }
-    v.push_back(5);
+    if (rem == 0)
+    {
+        return 0;
+    }
+    // if (dp[i] != -1)
+    //     return dp[i];
+    /* code */
+
+    if (v[i] <= rem)
+    {
+        // cout << i << " " << rem <<" "<<nn<< endl;
+        return dp[i] = min(find(v, i + 1, rem - v[i]) + 1, find(v, i + 1, rem)); /* code */
+    }
+    else
+    {
+        return dp[i] = 1000;
+    }
 }
+
 signed main()
 {
 
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
+    int j = 1;
+    vector<int> fill;
+
+    j = 1;
+    for (int i = 1; i <= 16; ++i)
+    {
+        j *= i;
+        st.insert(j);
+    }
+    for (auto &it : st)
+    {
+
+        fill.push_back(it);
+    }
     int Test_Cases;
     cin >> Test_Cases;
+    debug(fill);
     while (Test_Cases--)
-        solve();
+    {
+
+        int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
+        cin >> n;
+        memset(dp, -1, sizeof(dp));
+        // int j = 1;
+
+        nn = upper_bound(fill.begin(), fill.end(), n + 1) - fill.begin();
+        // debug(fill);
+        ans = find(fill, 0, n);
+        if (ans >= 1000)
+        {
+            cout << "-1"
+                 << "\n";
+            // return;
+            continue;
+
+            /* code */
+        }
+        cout << ans << endl;
+    }
     return 0;
 }
