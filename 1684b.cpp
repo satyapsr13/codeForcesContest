@@ -58,74 +58,14 @@ void _print(vector<T> v)
 // const int d4x[4] = {-1, 0, 1, 0}, d4y[4] = {0, 1, 0, -1};
 // const int d8x[8] = {-1, -1, 0, 1, 1, 1, 0, -1}, d8y[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
-// void merge(vector<int>v,int l,int mid,int u)
-// {
-//     int i, j, k;
-//     int left[mid - l + 1] = {0};
-//     int right[u-mid] = {0};
-
-// }
-// void mergeSort(vector<int> &v, int l, int u)
-// {
-//     if (l >= u)
-//     {
-//         return;
-//         /* code */
-//     }
-//     int mid = (l + u) / 2;
-//     mergeSort(v, l, mid);
-//     mergeSort(v, mid + 1, u);
-//     merge(v, l, mid, u);
-// }
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> n;
-    vector<int> v(n);
-
-    for (int i = 0, x; i < n; ++i)
-    {
-        cin >> v[i];
-    }
-    sort(v.begin(), v.end());
-    int a = 0, b = 0;
-    int target = v[n - 1] / 2;
-
-    for (int i = n / 2; i >= 0; --i)
-    {
-        if (v[i] * 2 <= v[n - 1])
-        {
-            b = i;
-            break;
-            
-        }
-    }
-    b++;
-    debug(v);
-    debug(b);
-    int j = 0;
-    for (int i = 0; i < b; ++i)
-    {
-        int last = n - b + j;
-        db1(last);
-        if (v[i]*2 <= v[last])
-        {
-            v[i] = -1;
-        }
-        else
-        {
-            i--;
-        }
-        j++;
-        if (last >= n)
-        {
-            cout << n - (upper_bound(v.begin(), v.end(), -1) - v.begin());
-            debug(v);
-            return;
-        }
-    }
-    debug(v);
-    cout << n - (upper_bound(v.begin(), v.end(), -1) - v.begin());
+    // cin >> n  ;
+    int a, b, c;
+    cin >> a >> b >> c;
+    cout << a+b+c << " " << b +c
+         << " " << c << endl;
 }
 signed main()
 {
@@ -133,6 +73,9 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    solve();
+    int Test_Cases;
+    cin >> Test_Cases;
+    while (Test_Cases--)
+        solve();
     return 0;
 }
