@@ -60,27 +60,45 @@ void _print(vector<T> v)
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
 void solve()
 {
-    int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> n >> k;
-    priority_queue<int> pq;
-    // vector<int> v(n);
+    int n, k, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
+    cin >> n;
+    vector<int> v(n);
 
     for (int i = 0, x; i < n; ++i)
     {
-        cin >> x;
-        pq.push(x);
+        cin >> v[i];
+        mx = max(mx, v[i]);
     }
-    int i = 0;
-    while (k--)
+    vector<string> ans;
+    string s1;
+
+    for (int i = 0; i < mx + 1; ++i)
     {
-        int tp = pq.top();
-        pq.pop();
-        pq.push(0);
-        sum += tp + i;
-        i++;
+
+        s1.push_back('a');
     }
-    cout << sum << "\n";
-    return;
+
+    for (int i = 0; i < n + 1; ++i)
+    {
+
+        ans.push_back(s1);
+        /* code */
+    }
+
+    for (int i = 1; i < n + 1; ++i)
+    {
+
+        for (int j = 0; j < mx + 1; ++j)
+        {
+            ans[i][j] = j < v[i - 1] ? ans[i - 1][j] : ans[i - 1][j] + 1 == 'z' ? 'a'
+                                                                                : ans[i - 1][j] + 1;
+        }
+    }
+    // debug(ans);
+    for (auto &it : ans)
+    {
+        cout << it << endl;
+    }
 }
 signed main()
 {

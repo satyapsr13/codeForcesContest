@@ -61,26 +61,40 @@ void _print(vector<T> v)
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> n >> k;
-    priority_queue<int> pq;
-    // vector<int> v(n);
+    cin >> n;
+    if (n & 1)
+    {
+        if (n == 1)
+        {
+            cout << "3"
+                 << "\n";
+            return;
+            /* code */
+        }
+        else
+        {
+            cout << "1"
+                 << "\n";
+            return;
+        }
+    }
+    else
+    {
+        int fo = -1;
+        int f1 = -1;
+        for (int i = 0; i < 33; ++i)
+        {
+            if (n & (1 << i))
+            {
+                f1 = i;
+                break;
+            }
+        }
 
-    for (int i = 0, x; i < n; ++i)
-    {
-        cin >> x;
-        pq.push(x);
+        ans = (1 << f1) + (((1 << f1) == n));
+        cout << ans;
+        cout << "\n";
     }
-    int i = 0;
-    while (k--)
-    {
-        int tp = pq.top();
-        pq.pop();
-        pq.push(0);
-        sum += tp + i;
-        i++;
-    }
-    cout << sum << "\n";
-    return;
 }
 signed main()
 {

@@ -61,25 +61,83 @@ void _print(vector<T> v)
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> n >> k;
-    priority_queue<int> pq;
-    // vector<int> v(n);
+    cin >> n;
+    string a, b;
+    cin >> a >> b;
 
-    for (int i = 0, x; i < n; ++i)
+    if (a == b)
     {
-        cin >> x;
-        pq.push(x);
+        cout << "0"
+             << "\n";
+        return;
+        /* code */
     }
-    int i = 0;
-    while (k--)
+    string c = b;
+    for (auto &it : c)
     {
-        int tp = pq.top();
-        pq.pop();
-        pq.push(0);
-        sum += tp + i;
-        i++;
+        // cout << it << " ";
+        if (it == '0')
+        {
+            it = '1';
+            /* code */
+        }
+        else
+        {
+            it = '0';
+        }
     }
-    cout << sum << "\n";
+    reverse(c.begin(), c.end());
+    // cout << b << " " << c << endl;
+    vector<int> vv;
+    vector<int> vv1;
+
+    for (int i = n - 1; i >= 0; --i)
+    {
+        if (a[i] == b[i])
+        {
+            continue;
+        }
+        else
+        {
+            vv.push_back(i + 1);
+            vv.push_back(1);
+            vv.push_back(i + 1);
+        }
+    }
+    for (int i = n - 1; i >= 0; --i)
+    {
+        if (a[i] == c[i])
+        {
+            continue;
+        }
+        else
+        {
+            vv1.push_back(i + 1);
+            vv1.push_back(1);
+            vv1.push_back(i + 1);
+        }
+    }
+    debug(vv);
+    debug(vv1);
+    if (vv.size() > vv1.size() + 1)
+    {
+        cout << vv1.size()+1 << " ";
+        for (auto &it : vv1)
+        {
+            cout << it << " ";
+        }
+        cout << n << " \n";
+
+        return;
+    }
+
+    cout << vv.size() << " ";
+    for (auto &it : vv)
+    {
+        cout << it << " ";
+    }
+    cout << "\n";
+
     return;
 }
 signed main()

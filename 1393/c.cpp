@@ -61,26 +61,68 @@ void _print(vector<T> v)
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> n >> k;
-    priority_queue<int> pq;
-    // vector<int> v(n);
-
+    cin >> n;
+    vector<int> v(n);
+    map<int, int> mp;
     for (int i = 0, x; i < n; ++i)
     {
-        cin >> x;
-        pq.push(x);
+        cin >> v[i];
+        mp[v[i]]++;
     }
-    int i = 0;
-    while (k--)
+    vector<pair<int, int>> vp;
+    for (auto &it : mp)
     {
-        int tp = pq.top();
-        pq.pop();
-        pq.push(0);
-        sum += tp + i;
-        i++;
+
+        vp.push_back({it.first, it.second});
+        it.second = -1;
     }
-    cout << sum << "\n";
-    return;
+    if (vp.size() == n)
+    {
+        cout << n << "\n";
+        return;
+    }
+
+    // mp.clear();
+    sort(vp.begin(), vp.end(), [&](pair<int, int> a, pair<int, int> b)
+         { return a.second > b.second; });
+
+    vector<int> vv;
+    while (vv.size() != n)
+    {
+        /* code */
+        for (auto &it : vp)
+        {
+            if (it.second > 0)
+            {
+                vv.push_back(it.first);
+                it.second--; /* code */
+            }
+        }
+    }
+
+    for (int i = 0; i < n; ++i)
+    {
+        if (mp[vv[i]] == -1)
+        {
+        }
+        else
+        {
+            mn = min(mn, i - mp[vv[i]]);
+        }
+        mp[vv[i]] = i;
+        // db2(vv[i], i);
+    }
+    if (mn - 1 == 0 and vp[0].second < (n / 2))
+    {
+        cout << "1"
+             << "\n";
+        return;
+        /* code */
+    }
+
+    cout << mn - 1;
+    // debug(vv);
+    cout << "\n";
 }
 signed main()
 {
