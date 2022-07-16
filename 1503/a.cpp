@@ -1,13 +1,12 @@
+
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long int
 #define count_1 __builtin_popcountll
-
 long long power(long long a, long long b, long long md)
 {
     return (!b ? 1 : (b & 1 ? a * power(a * a % md, b / 2, md) % md : power(a * a % md, b / 2, md) % md));
 }
-
 #define db1(x) cout << "\t\n" \
                     << #x << "\t" << x << "\t\n"
 #define db2(x, y) cout << "\t\n"                     \
@@ -59,38 +58,96 @@ void _print(vector<T> v)
 // const int d4x[4] = {-1, 0, 1, 0}, d4y[4] = {0, 1, 0, -1};
 // const int d8x[8] = {-1, -1, 0, 1, 1, 1, 0, -1}, d8y[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
-
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
     cin >> n;
-    vector<int> v(n);
-    vector<int> v1(n);
-
-    for (int i = 0, x; i < n; ++i)
+    string s;
+    cin >> s;
+    string a, b;
+    for (int i = 0; i < n; ++i)
     {
-        cin >> v[i];
-        v1[i] = v[i];
+        if (i & 1)
+        {
+            a.push_back(')');
+        }
+        else
+        {
+            a.push_back('(');
+        }
     }
-
-    sort(v1.begin(), v1.end());
-    mn = v1[0];
+    if (s[0] != '1' or s[n - 1] != '1')
+    {
+        cout << "NO" << endl;
+        return;
+        /* code */
+    }
 
     for (int i = 0; i < n; ++i)
     {
-
-        if (v[i] % mn != 0)
+        if (s[i] == '0')
         {
-            if (v[i] != v1[i])
+            if (a[i] == ')')
             {
+                b.push_back('(');
+                /* code */
+            }
+            else
+            {
+                b.push_back(')');
+            }
+        }
+        else
+        {
+            b.push_back(a[i]);
+        }
+    }
+    // cout << a << endl
+    //      << b;
+    stack<char> st;
+    for (auto &it : b)
+    {
+        // cout << it << " ";
+        if (st.empty())
+        {
+            // st.push(it);
+            if (it == ')')
+            {
+                // st.pop();
                 cout << "NO" << endl;
                 return;
             }
+            else
+            {
+                st.push(it);
+            }
+        }
+        else
+        {
+            if (it == ')')
+            {
+                st.pop();
+            }
+            else
+            {
+                st.push(it);
+            }
         }
     }
-    cout << "YES"
-         << "\n";
-    return;
+    if (st.empty())
+    {
+        cout << "YES"
+             << "\n"
+             << a << endl
+             << b << endl;
+        return;
+        /* code */
+    }
+    else
+    {
+        cout << "NO" << endl;
+        return;
+    }
 }
 signed main()
 {

@@ -1,13 +1,12 @@
+
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long int
 #define count_1 __builtin_popcountll
-
 long long power(long long a, long long b, long long md)
 {
     return (!b ? 1 : (b & 1 ? a * power(a * a % md, b / 2, md) % md : power(a * a % md, b / 2, md) % md));
 }
-
 #define db1(x) cout << "\t\n" \
                     << #x << "\t" << x << "\t\n"
 #define db2(x, y) cout << "\t\n"                     \
@@ -59,38 +58,83 @@ void _print(vector<T> v)
 // const int d4x[4] = {-1, 0, 1, 0}, d4y[4] = {0, 1, 0, -1};
 // const int d8x[8] = {-1, -1, 0, 1, 1, 1, 0, -1}, d8y[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
-
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
     cin >> n;
     vector<int> v(n);
-    vector<int> v1(n);
-
+    map<int, int> mp;
     for (int i = 0, x; i < n; ++i)
     {
         cin >> v[i];
-        v1[i] = v[i];
+        mp[v[i] % 10]++;
     }
+    // map<vector<int>, int> mp1;
+    int mp1[10][10][10] = {0};
 
-    sort(v1.begin(), v1.end());
-    mn = v1[0];
-
-    for (int i = 0; i < n; ++i)
+    for (int i = 0; i < 10; ++i)
     {
 
-        if (v[i] % mn != 0)
+        for (int j = 0; j < 10; ++j)
         {
-            if (v[i] != v1[i])
+
+            for (int k = 0; k < 10; ++k)
             {
-                cout << "NO" << endl;
-                return;
+                int ss = i + j + k;
+                if (ss % 10 == 3)
+                {
+                    mp1[i][j][k]++;
+                }
             }
         }
     }
-    cout << "YES"
-         << "\n";
+    for (int i = 0; i < 10; ++i)
+    {
+
+        for (int j = 0; j < 10; ++j)
+        {
+
+            for (int k = 0; k < 10; ++k)
+            {
+                if (mp1[i][j][k])
+                {
+                    /* code */
+
+                    map<int, int> mmp;
+                    mmp[j]++;
+                    mmp[k]++;
+                    mmp[i]++;
+                    bool ll = 1;
+                    for (auto &it : mmp)
+                    {
+                        ll = ll & (mp[it.first] >= it.second);
+                        // cout << it << " ";
+                    }
+                    if (ll)
+                    {
+                        cout << "YES"
+                             << "\n";
+                        return;
+                        /* code */
+                    }
+                }
+
+                // // int ss = i + j + k;
+                // if (mp1[i][j][k])
+                // {
+                //     // mp[i][j][k];
+                //     cout << i << " " << j << " " << k << endl;
+                // }
+            }
+        }
+    }
+    cout << "NO" << endl;
     return;
+    // for (auto &it : mp1)
+    // {
+    //     // cout << it << " ";
+    //     debug(it.first);
+    // }
 }
 signed main()
 {
