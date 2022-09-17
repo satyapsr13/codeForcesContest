@@ -60,56 +60,49 @@ void _print(vector<T> v)
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
 void solve()
 {
-    int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> n;
+    int n, k, ans = 0, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
+    cin >> n >> k;
     vector<int> v1(n);
 
     for (int i = 0, x; i < n; ++i)
     {
         cin >> v1[i];
     }
-    int m;
-    cin >> m;
-    vector<int> v2(m);
+    vector<int> v2(k);
 
-    for (int i = 0, x; i < m; ++i)
+    for (int i = 0, x; i < k; ++i)
     {
         cin >> v2[i];
     }
 
     sort(v2.begin(), v2.end());
-    sort(v1.begin(), v1.end());
-    int i = 0, j = 0;
-    while (i < n and j < m)
+    if (v2[0] == v2[k - 1] and v2[0] == 1)
     {
-        if (v1[i] < v2[j])
+        ans = (2 * accumulate(v1.begin(), v1.end(), 0LL));
+        cout << ans << endl;
+        return;
+    }
+    sort(v1.begin(), v1.end());
+    int l = 0, r = n - 1;
+    int t = 0;
+
+    while (t < k)
+    {
+        if (v2[t++] == 1)
         {
-            if (v2[j] - v1[i] < 2)
-            {
-                count++;
-                i++;
-                j++;
-            }
-            else
-            {
-                i++;
-            }
-        }
-        else
-        {
-            if (v1[i] - v2[j] < 2)
-            {
-                count++;
-                i++;
-                j++;
-            }
-            else
-            {
-                j++;
-            }
+
+            count++;
+            ans += (2 * v1[r--]);
         }
     }
-    cout << count;
+
+    for (int i = t; i < k; ++i)
+    {
+        ans += (v1[l++] + v1[r--]);
+        cout <<"YES"<<"\n";
+        // return;
+    }
+    cout << ans;
     cout << "\n";
 }
 signed main()
@@ -118,7 +111,9 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-
-    solve();
+    int Test_Cases;
+    cin >> Test_Cases;
+    while (Test_Cases--)
+        solve();
     return 0;
 }

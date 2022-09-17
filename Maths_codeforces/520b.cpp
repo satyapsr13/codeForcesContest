@@ -61,56 +61,14 @@ void _print(vector<T> v)
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> n;
-    vector<int> v1(n);
-
-    for (int i = 0, x; i < n; ++i)
+    cin >> n >> k;
+    while (n < k)
     {
-        cin >> v1[i];
+        n <<= 1;
+        ans++;
     }
-    int m;
-    cin >> m;
-    vector<int> v2(m);
-
-    for (int i = 0, x; i < m; ++i)
-    {
-        cin >> v2[i];
-    }
-
-    sort(v2.begin(), v2.end());
-    sort(v1.begin(), v1.end());
-    int i = 0, j = 0;
-    while (i < n and j < m)
-    {
-        if (v1[i] < v2[j])
-        {
-            if (v2[j] - v1[i] < 2)
-            {
-                count++;
-                i++;
-                j++;
-            }
-            else
-            {
-                i++;
-            }
-        }
-        else
-        {
-            if (v1[i] - v2[j] < 2)
-            {
-                count++;
-                i++;
-                j++;
-            }
-            else
-            {
-                j++;
-            }
-        }
-    }
-    cout << count;
-    cout << "\n";
+    
+    cout << ans + (n - k);
 }
 signed main()
 {

@@ -60,56 +60,55 @@ void _print(vector<T> v)
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
 void solve()
 {
-    int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
+    int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MIN, mx = INT_MIN;
     cin >> n;
-    vector<int> v1(n);
+    vector<int> v(n);
 
     for (int i = 0, x; i < n; ++i)
     {
-        cin >> v1[i];
+        cin >> v[i];
     }
-    int m;
-    cin >> m;
-    vector<int> v2(m);
-
-    for (int i = 0, x; i < m; ++i)
+    int i = 0;
+    bool acceptP = (v[0] > 0);
+    while (i < n)
     {
-        cin >> v2[i];
-    }
-
-    sort(v2.begin(), v2.end());
-    sort(v1.begin(), v1.end());
-    int i = 0, j = 0;
-    while (i < n and j < m)
-    {
-        if (v1[i] < v2[j])
+        if (acceptP)
         {
-            if (v2[j] - v1[i] < 2)
+
+            if (v[i] < 0)
             {
-                count++;
-                i++;
-                j++;
+                if (mn != INT_MIN)
+                    ans = mn + ans;
+
+                mn = INT_MIN;
+                acceptP = false;
             }
             else
             {
+                mx = max(mx, v[i]);
                 i++;
             }
         }
         else
         {
-            if (v1[i] - v2[j] < 2)
+            if (v[i] > 0)
             {
-                count++;
-                i++;
-                j++;
+                acceptP = true;
+                if (mx != INT_MIN)
+                    ans += mx;
+                mx = INT_MIN;
+                // continue;
             }
             else
             {
-                j++;
+
+                mn = max(mn, v[i]);
+                i++;
             }
         }
     }
-    cout << count;
+    ans += (mn != INT_MIN ? mn : 0) + (mx != INT_MIN? mx:0);
+    cout << ans;
     cout << "\n";
 }
 signed main()
@@ -118,7 +117,9 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-
-    solve();
+    int Test_Cases;
+    cin >> Test_Cases;
+    while (Test_Cases--)
+        solve();
     return 0;
 }

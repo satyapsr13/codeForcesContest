@@ -68,48 +68,32 @@ void solve()
     {
         cin >> v1[i];
     }
-    int m;
-    cin >> m;
-    vector<int> v2(m);
+    vector<int> v2(n);
 
-    for (int i = 0, x; i < m; ++i)
+    for (int i = 0, x; i < n; ++i)
     {
         cin >> v2[i];
+        v1[i] -= v2[i];
     }
 
-    sort(v2.begin(), v2.end());
     sort(v1.begin(), v1.end());
-    int i = 0, j = 0;
-    while (i < n and j < m)
+    // debug(v1);
+    for (int i = 0; i < n - 1; ++i)
     {
-        if (v1[i] < v2[j])
+        if (v1[i] > 0)
         {
-            if (v2[j] - v1[i] < 2)
-            {
-                count++;
-                i++;
-                j++;
-            }
-            else
-            {
-                i++;
-            }
+            ans += (n - i - 1);
         }
         else
         {
-            if (v1[i] - v2[j] < 2)
-            {
-                count++;
-                i++;
-                j++;
-            }
-            else
-            {
-                j++;
-            }
+            int ind = lower_bound(v1.begin(), v1.end(), (-1 * v1[i]) + 1) - v1.begin();
+            if (ind != n)
+                ans += (n  - ind);
+            // db1(ind);
         }
+        // db1(ans);
     }
-    cout << count;
+    cout << ans;
     cout << "\n";
 }
 signed main()

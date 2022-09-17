@@ -60,56 +60,49 @@ void _print(vector<T> v)
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
 void solve()
 {
-    int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
+    int n, k, ans = 0, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
     cin >> n;
-    vector<int> v1(n);
-
+    vector<int> v(n);
+    vector<int> pre(n, 0);
+    vector<int> suff(n, 0);
+    mx = 0;
     for (int i = 0, x; i < n; ++i)
     {
-        cin >> v1[i];
+        cin >> v[i];
     }
-    int m;
-    cin >> m;
-    vector<int> v2(m);
+    pre[0] = v[0];
+    suff[n - 1] = v[n - 1];
 
-    for (int i = 0, x; i < m; ++i)
+    for (int i = 1; i < n; ++i)
     {
-        cin >> v2[i];
+        pre[i] = v[i] + pre[i - 1];
     }
-
-    sort(v2.begin(), v2.end());
-    sort(v1.begin(), v1.end());
-    int i = 0, j = 0;
-    while (i < n and j < m)
+    for (int i = n - 2; i >= 0; --i)
     {
-        if (v1[i] < v2[j])
+        suff[i] = v[i] + suff[i + 1];
+    }
+    // debug(pre);
+    // debug(suff);
+    int l = 0, r = n - 1;
+    while (l < r and l < n and r >=0)
+    {
+        if (pre[l] < suff[r])
         {
-            if (v2[j] - v1[i] < 2)
-            {
-                count++;
-                i++;
-                j++;
-            }
-            else
-            {
-                i++;
-            }
+            l++;
+        }
+        else if (pre[l] > suff[r])
+        {
+            r++;
         }
         else
         {
-            if (v1[i] - v2[j] < 2)
-            {
-                count++;
-                i++;
-                j++;
-            }
-            else
-            {
-                j++;
-            }
+            mx = max(mx, pre[l]);
+            l++;
+            r--;
         }
     }
-    cout << count;
+
+    cout << mx;
     cout << "\n";
 }
 signed main()
@@ -118,7 +111,6 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-
     solve();
     return 0;
 }
