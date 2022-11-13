@@ -25,7 +25,7 @@
 // #define endl "\n"
 // #define all(v) v.begin(), v.end()
 // #define valueupto(x, y) fixed << setprecision(x) << y
-// //#define PI 3.141592653589793238462
+// // #define PI 3.141592653589793238462
 // typedef long long ll;
 // #ifndef ONLINE_JUDGE
 // #define debug(x)                          \
@@ -62,38 +62,24 @@
 // {
 //     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
 //     cin >> n;
-//     vector<int> v1(n);
-
+//     // vector<int> v(n);
+//     int neg = 0, pos = 0;
 //     for (int i = 0, x; i < n; ++i)
 //     {
-//         cin >> v1[i];
-//     }
-//     vector<int> v2(n);
-
-//     for (int i = 0, x; i < n; ++i)
-//     {
-//         cin >> v2[i];
-//         v1[i] -= v2[i];
-//     }
-
-//     sort(v1.begin(), v1.end());
-//     // debug(v1);
-//     for (int i = 0; i < n - 1; ++i)
-//     {
-//         if (v1[i] > 0)
+//         // cin >> v[i];
+//         cin >> x;
+//         if (x > 0)
 //         {
-//             ans += (n - i - 1);
+//             pos += x;
+//             /* code */
 //         }
 //         else
 //         {
-//             int ind = lower_bound(v1.begin(), v1.end(), (-1 * v1[i]) + 1) - v1.begin();
-//             if (ind != n)
-//                 ans += (n  - ind);
-//             // db1(ind);
+//             neg += x;
 //         }
-//         // db1(ans);
 //     }
-//     cout << ans;
+//     neg = -neg;
+//     cout << max(neg, pos) - min(neg, pos);
 //     cout << "\n";
 // }
 // signed main()
@@ -102,56 +88,33 @@
 //     ios_base::sync_with_stdio(false);
 //     cin.tie(nullptr);
 //     cout.tie(nullptr);
-
-//     solve();
+//     int Test_Cases;
+//     cin >> Test_Cases;
+//     while (Test_Cases--)
+//         solve();
 //     return 0;
 // }
-#include <bits/stdc++.h>
+// CPP program to demonstrate using a function on left side
+// of an expression in C++
+#include <iostream>
 using namespace std;
 
-struct cmp
+// such a function will not be safe if x is non static
+// variable of it
+int &fun()
 {
+    static int x;
+    return x;
+}
 
-    bool operator()(vector<int> a, vector<int> b)
-    {
-        //   return a.dead<b.dead;
-        if (a[1] == b[1])
-        {
-            return a[2] > b[2];
-        }
-        return a[1] < b[1];
-    }
-};
-class Solution
+// Driver Code
+int main()
 {
-public:
-    // Function to find the maximum profit and the number of jobs done.
-    vector<int> JobScheduling(Job arr[], int n)
-    {
-        vector<int> ans;
-        // your code here
+    fun() = 10;
 
-        ans.push_back(1);
-        ans.push_back(1);
-        vector<vector<int>> v(n, vector<int>(3, 0));
+    // this line prints 10 as output
+    printf(" %d ", fun());
 
-        for (int i = 0; i < n; ++i)
-        {
-            v[i][0] = arr[i].id;
-
-            v[i][1] = arr[i].dead;
-            v[i][2] = arr[i].profit;
-        }
-        sort(v.begin(), v.end(), cmp);
-        for (auto &it : v)
-        {
-            cout << it[0] << " " << it[1] << " " << it[2] << endl;
-        }
-
-        return ans;
-    }
-};
-int main(int argc, const char **argv)
-{
+    getchar();
     return 0;
 }
