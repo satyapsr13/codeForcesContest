@@ -58,35 +58,46 @@ void _print(vector<T> v)
 // const int d4x[4] = {-1, 0, 1, 0}, d4y[4] = {0, 1, 0, -1};
 // const int d8x[8] = {-1, -1, 0, 1, 1, 1, 0, -1}, d8y[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
-void solve()
+int find(int a, int b, int c, int d, bool isFootMan)
 {
-    int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> n >> k;
-    if (n % k == 0)
+    int ans = 0;
+
+    if (a == 1)
     {
-        cout << k << " ";
-        for (int i = 2; i < n ; ++i)
+        return b <= d;
+
+    }
+
+    if (b == 1)
+    {
+        return b <= d;
+    }
+    if (isFootMan)
+    {
+
+        for (int i = 1; i <= min(d, b); ++i)
         {
-            if (i == k)
-            {
-                cout << n << " ";
-                /* code */
-            }
-            else
-            {
-                cout << i << " ";
-                /* code */
-            }
+            ans += find(a, b - i, c, d, !isFootMan);
         }
-        cout << 1 << " ";
     }
     else
     {
-        cout << "-1"
-             << "\n";
-        return;
+
+        for (int i = 1; i <= min(c, a); ++i)
+        {
+            ans += find(a - i, b, c, d, !isFootMan);
+        }
     }
-    cout << "\n";
+    return ans;
+}
+void solve()
+{
+    int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
+    int a, b, c, d;
+
+    // cin >> n  ;
+    cin >> a >> b >> c >> d;
+    cout << find(a, b, c, d, 0) + find(a, b, c, d, 1);
 }
 signed main()
 {
@@ -94,9 +105,7 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    int Test_Cases;
-    cin >> Test_Cases;
-    while (Test_Cases--)
-        solve();
+
+    solve();
     return 0;
 }

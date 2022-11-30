@@ -58,35 +58,58 @@ void _print(vector<T> v)
 // const int d4x[4] = {-1, 0, 1, 0}, d4y[4] = {0, 1, 0, -1};
 // const int d8x[8] = {-1, -1, 0, 1, 1, 1, 0, -1}, d8y[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
+
+bool canPositive(vector<int> &v, int mid)
+{
+    // int sum = 0;
+    for (auto &it : v)
+    {
+        mid += it;
+        if (mid <= 0)
+        {
+            return false;
+            
+        }
+
+
+    }
+    return true;
+}
+int findLowestStartingStair(vector<int> jumps)
+{
+    int l = 1, r = INT_MAX / 2;
+    int ans = r;
+    while (l <= r)
+    {
+        int mid = l + (r - l) / 2;
+        if (canPositive(jumps, mid))
+        {
+            ans = mid;
+            r = mid - 1;
+            /* code */
+        }
+        else
+        {
+            l = mid + 1;
+            ans = l;
+        }
+
+        /* code */
+    }
+    return ans;
+}
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> n >> k;
-    if (n % k == 0)
+    // cin >> n;
+    n = 10;
+    vector<int> v(n);
+
+    for (int i = 0, x; i < n; ++i)
     {
-        cout << k << " ";
-        for (int i = 2; i < n ; ++i)
-        {
-            if (i == k)
-            {
-                cout << n << " ";
-                /* code */
-            }
-            else
-            {
-                cout << i << " ";
-                /* code */
-            }
-        }
-        cout << 1 << " ";
+        cin >> v[i];
     }
-    else
-    {
-        cout << "-1"
-             << "\n";
-        return;
-    }
-    cout << "\n";
+    cout << findLowestStartingStair(v);
 }
 signed main()
 {

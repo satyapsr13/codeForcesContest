@@ -61,31 +61,40 @@ void _print(vector<T> v)
 void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> n >> k;
-    if (n % k == 0)
+    cin >> n;
+    vector<int> v(n);
+    map<int, int> mp;
+    for (int i = 0; i < n; ++i)
     {
-        cout << k << " ";
-        for (int i = 2; i < n ; ++i)
+        cin >> v[i];
+        mp[v[i]]++;
+    }
+
+    sort(v.begin(), v.end());
+
+    bool isSolved = false;
+    for (int i = 0; i < n; ++i)
+    {
+        if (mp[v[i]] > 0)
         {
-            if (i == k)
+            count = 1;
+            mp[v[i]]--;
+            // cout << v[i] << " ";
+            for (int j = i + 1; j < n; ++j)
             {
-                cout << n << " ";
-                /* code */
+                if (v[j] >= count and mp[v[j]] > 0)
+                {
+                    count++;
+                    mp[v[j]]--;
+                    // cout << v[j] << " ";
+                }
             }
-            else
-            {
-                cout << i << " ";
-                /* code */
-            }
+            // cout << "\n";
+
+            ans++;
         }
-        cout << 1 << " ";
     }
-    else
-    {
-        cout << "-1"
-             << "\n";
-        return;
-    }
+    cout << ans;
     cout << "\n";
 }
 signed main()
@@ -94,9 +103,7 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    int Test_Cases;
-    cin >> Test_Cases;
-    while (Test_Cases--)
-        solve();
+
+    solve();
     return 0;
 }

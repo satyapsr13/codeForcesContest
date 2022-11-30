@@ -62,31 +62,22 @@ void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
     cin >> n >> k;
-    if (n % k == 0)
+    vector<int> v(n);
+    unordered_map<int, int> mp;
+    for (int i = 0, x; i < n; ++i)
     {
-        cout << k << " ";
-        for (int i = 2; i < n ; ++i)
-        {
-            if (i == k)
-            {
-                cout << n << " ";
-                /* code */
-            }
-            else
-            {
-                cout << i << " ";
-                /* code */
-            }
-        }
-        cout << 1 << " ";
+        cin >> v[i];
+        mp[i + 1] = v[i];
     }
-    else
+    while (k--)
     {
-        cout << "-1"
-             << "\n";
-        return;
+        int x, y;
+        cin >> x >> y;
+        ans += min(mp[x], mp[y]);
+        /* code */
     }
-    cout << "\n";
+    cout << ans << "\n";
+    return;
 }
 signed main()
 {
@@ -94,9 +85,7 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    int Test_Cases;
-    cin >> Test_Cases;
-    while (Test_Cases--)
+  
         solve();
     return 0;
 }

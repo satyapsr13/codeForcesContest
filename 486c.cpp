@@ -62,31 +62,9 @@ void solve()
 {
     int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
     cin >> n >> k;
-    if (n % k == 0)
-    {
-        cout << k << " ";
-        for (int i = 2; i < n ; ++i)
-        {
-            if (i == k)
-            {
-                cout << n << " ";
-                /* code */
-            }
-            else
-            {
-                cout << i << " ";
-                /* code */
-            }
-        }
-        cout << 1 << " ";
-    }
-    else
-    {
-        cout << "-1"
-             << "\n";
-        return;
-    }
-    cout << "\n";
+    string s;
+    cin >> s;
+    
 }
 signed main()
 {
@@ -94,9 +72,7 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    int Test_Cases;
-    cin >> Test_Cases;
-    while (Test_Cases--)
-        solve();
+
+    solve();
     return 0;
 }

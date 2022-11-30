@@ -58,35 +58,75 @@ void _print(vector<T> v)
 // const int d4x[4] = {-1, 0, 1, 0}, d4y[4] = {0, 1, 0, -1};
 // const int d8x[8] = {-1, -1, 0, 1, 1, 1, 0, -1}, d8y[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
-void solve()
+bool isOddEven(int x, int y)
 {
-    int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> n >> k;
-    if (n % k == 0)
+    return ((x & 1) and !(y & 1)) || (!(x & 1) and (y & 1));
+}
+vector<int> findPrime()
+{
+    vector<int> v(1000000, 0);
+    int n = 1000000;
+    vector<int> ans;
+    for (int i = 2; i < n; ++i)
     {
-        cout << k << " ";
-        for (int i = 2; i < n ; ++i)
+        if (v[i] == 0)
         {
-            if (i == k)
+
+            for (int j = i + i; j < 1000000; j += i)
             {
-                cout << n << " ";
-                /* code */
-            }
-            else
-            {
-                cout << i << " ";
-                /* code */
+                v[j] = 1;
             }
         }
-        cout << 1 << " ";
     }
-    else
+    int i = 0;
+    v[0] = 1;
+    v[1] = 1;
+
+    for (int i = 0; i < 1000000; ++i)
     {
-        cout << "-1"
-             << "\n";
-        return;
+        if (v[i] == 0)
+        {
+            ans.push_back(i);
+            /* code */
+        }
     }
-    cout << "\n";
+    return ans;
+}
+
+void solve(vector<int> &prime)
+{
+    int n, k, ans = 0, l, count = 0, sum1 = 0, sum2 = 0, mn = INT_MAX, mx = INT_MIN;
+    cin >> n;
+    vector<int> v(n);
+    // for (auto &it : prime)
+    // {
+    //     cout << it << " ";
+    // }
+    for (int i = 0, x; i < n; ++i)
+    {
+        cin >> v[i];
+    }
+
+    for (int i = 0; i < n; ++i)
+    {
+        if (v[i] == 1)
+        {
+            cout << "NO" << endl;
+        }
+        else
+        {
+            if (v[i] % 2 == 0 and v[i] != 4)
+            {
+                cout << "NO" << endl;
+                continue;
+            }
+
+            int sq = sqrt(v[i]);
+            if (sq * sq == v[i])
+            {
+            }
+        }
+    }
 }
 signed main()
 {
@@ -94,9 +134,9 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    int Test_Cases;
-    cin >> Test_Cases;
-    while (Test_Cases--)
-        solve();
+
+    vector<int> prime = findPrime();
+
+    solve(prime);
     return 0;
 }

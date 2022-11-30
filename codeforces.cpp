@@ -60,43 +60,50 @@ void _print(vector<T> v)
 ////vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
 void solve()
 {
-    int n, k, ans = 0, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
-    cin >> n >> k;
-    if (n % k == 0)
+    int n, k, l, count = 0, sum = 0, mn = INT_MAX, mx = INT_MIN;
+    // cin >> n;
+    cin >> n;
+    if (n == 1 or n == 2)
     {
-        cout << k << " ";
-        for (int i = 2; i < n ; ++i)
-        {
-            if (i == k)
-            {
-                cout << n << " ";
-                /* code */
-            }
-            else
-            {
-                cout << i << " ";
-                /* code */
-            }
-        }
-        cout << 1 << " ";
+        cout << n << "\n";
+        return;
+        /* code */
+    }
+    if (n == 3)
+    {
+        cout << "6"
+             << "\n";
+        return;
+        /* code */
+    }
+
+    if (n & 1)
+    {
+        cout << n * (n - 1) * (n - 2);
+        cout << "\n";
     }
     else
     {
-        cout << "-1"
-             << "\n";
-        return;
+        if ((n - 3) % 3 == 0 and (n % 3) == 0)
+        {
+            cout << max({(n * (n - 1) * (n - 3) / 3), (n * (n - 1) * (n - 2) / 2), (n - 1) * (n - 2) * (n - 3) / 2});
+            cout << "\n";
+        }
+        else
+        {
+
+            cout << n * (n - 1) * (n - 3);
+            cout << "\n";
+        }
     }
-    cout << "\n";
 }
+
 signed main()
 {
 
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    int Test_Cases;
-    cin >> Test_Cases;
-    while (Test_Cases--)
-        solve();
+    solve();
     return 0;
 }
